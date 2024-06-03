@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 class RoleSelectionGUI extends JFrame {
     private CarRentalSystem rentalSystem;
@@ -31,10 +34,35 @@ class RoleSelectionGUI extends JFrame {
     }
 
     private void openManagerGUI() {
-        RentalSystemGUI managerGUI = new RentalSystemGUI(rentalSystem, true);
-        managerGUI.setVisible(true);
-        dispose();
+        String managerEmail = JOptionPane.showInputDialog(this, "Enter Manager Email:");
+        if (managerEmail == null || managerEmail.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter Manager Email.");
+            return;
+        }
+
+        if (verifyManagerEmail(managerEmail)) {
+            RentalSystemGUI managerGUI = new RentalSystemGUI(rentalSystem, true);
+            managerGUI.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Access Denied. Invalid Manager Email.");
+        }
     }
+
+    private boolean verifyManagerEmail(String email) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("manager.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().equalsIgnoreCase(email.trim())) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     private void openCustomerGUI() {
         RentalSystemGUI customerGUI = new RentalSystemGUI(rentalSystem, false);

@@ -52,6 +52,13 @@ class RentalSystemGUI extends JFrame {
             JButton btnRemoveCar = new JButton("Remove a Car");
             btnRemoveCar.addActionListener(e -> removeCar());
             centerPanel.add(btnRemoveCar);
+
+            JButton btnAddManager = new JButton("Add a Manager");
+            btnAddManager.addActionListener(e -> addManager());
+            centerPanel.add(btnAddManager);
+
+
+
         } else {
             JLabel titleForCustomer = new JLabel("(Customer)");
             titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -72,6 +79,8 @@ class RentalSystemGUI extends JFrame {
             JButton btnViewRentalHistory = new JButton("View Rental History");
             btnViewRentalHistory.addActionListener(e -> viewRentalHistory());
             centerPanel.add(btnViewRentalHistory);
+
+
         }
 
         JButton btnExit = new JButton("Exit");
@@ -219,6 +228,30 @@ class RentalSystemGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Car added successfully.");
         }
     }
+
+    private void addManager() {
+        JTextField emailField = new JTextField(20);
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Manager Email:"));
+        panel.add(emailField);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Add Manager", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            String email = emailField.getText();
+            if (email.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Email cannot be empty.");
+                return;
+            }
+
+            // Save the manager's email to the file
+            rentalSystem.saveManagerEmailToFile(email);
+            JOptionPane.showMessageDialog(this, "Manager added successfully.");
+        }
+    }
+
+
+
 
     private void removeCar() {
         List<Car> allCars = rentalSystem.getCars();

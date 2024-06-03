@@ -7,6 +7,7 @@ class CarRentalSystem {
     private List<Customer> customers;
     private List<Rental> rentals;
 
+
     public CarRentalSystem() {
         cars = new ArrayList<>();
         customers = new ArrayList<>();
@@ -148,6 +149,16 @@ class CarRentalSystem {
             e.printStackTrace();
         }
     }
+
+    void saveManagerEmailToFile(String email) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("manager.txt", true))) {
+            writer.write(email);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void saveRentalsToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
