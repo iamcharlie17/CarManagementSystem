@@ -10,7 +10,7 @@ class RoleSelectionGUI extends JFrame {
     public RoleSelectionGUI(CarRentalSystem rentalSystem) {
         this.rentalSystem = rentalSystem;
         setTitle("Select your role");
-        setSize(400, 300);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initializeUI();
@@ -18,15 +18,25 @@ class RoleSelectionGUI extends JFrame {
 
     private void initializeUI() {
 
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon("car1.jpg");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 
-        panel.setLayout(new GridLayout(2, 1, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(150,100,150,100));
+        panel.setLayout(new GridLayout(1, 2, 50, 50));
 
         JButton btnManager = new JButton("Manager");
+        btnManager.setFont(new Font("Arial", Font.BOLD, 16));
         btnManager.addActionListener(e -> openManagerGUI());
         panel.add(btnManager);
 
         JButton btnCustomer = new JButton("Customer");
+        btnCustomer.setFont(new Font("Arial", Font.BOLD, 16));
         btnCustomer.addActionListener(e -> openCustomerGUI());
         panel.add(btnCustomer);
 

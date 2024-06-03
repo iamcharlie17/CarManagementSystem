@@ -2,5 +2,3 @@ CUS1,Rayha
 CUS2,Rayhn
 CUS3,Rayan
 CUS4,Rahan
-CUS5,Charlie
-CUS6,Zawad

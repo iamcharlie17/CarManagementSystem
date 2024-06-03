@@ -28,8 +28,16 @@ class RentalSystemGUI extends JFrame {
         northPanel.add(titleLabel);
 
 
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(6, 1, 10, 10));
+        JPanel centerPanel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon("car1.jpg");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
+        centerPanel.setLayout(new GridLayout(3, 2, 50, 50));
 
         if (isManager) {
 
@@ -38,22 +46,27 @@ class RentalSystemGUI extends JFrame {
             northPanel.add(titleLabel2);
 
             JButton btnDisplayCars = new JButton("Display All Cars");
+            btnDisplayCars.setFont(new Font("Arial", Font.BOLD, 16));
             btnDisplayCars.addActionListener(e -> displayCars());
             centerPanel.add(btnDisplayCars);
 
             JButton btnDisplayRentedCustomers = new JButton("Display Customers");
+            btnDisplayRentedCustomers.setFont(new Font("Arial", Font.BOLD, 16));
             btnDisplayRentedCustomers.addActionListener(e -> displayRentedCustomers());
             centerPanel.add(btnDisplayRentedCustomers);
 
             JButton btnAddCar = new JButton("Add a Car");
+            btnAddCar.setFont(new Font("Arial", Font.BOLD, 16));
             btnAddCar.addActionListener(e -> addCar());
             centerPanel.add(btnAddCar);
 
             JButton btnRemoveCar = new JButton("Remove a Car");
+            btnRemoveCar.setFont(new Font("Arial", Font.BOLD, 16));
             btnRemoveCar.addActionListener(e -> removeCar());
             centerPanel.add(btnRemoveCar);
 
             JButton btnAddManager = new JButton("Add a Manager");
+            btnAddManager.setFont(new Font("Arial", Font.BOLD, 16));
             btnAddManager.addActionListener(e -> addManager());
             centerPanel.add(btnAddManager);
 
@@ -65,18 +78,22 @@ class RentalSystemGUI extends JFrame {
             northPanel.add(titleForCustomer);
 
             JButton btnRentCar = new JButton("Rent a Car");
+            btnRentCar.setFont(new Font("Arial", Font.BOLD, 16));
             btnRentCar.addActionListener(e -> rentCar());
             centerPanel.add(btnRentCar);
 
             JButton btnReturnCar = new JButton("Return a Car");
+            btnReturnCar.setFont(new Font("Arial", Font.BOLD, 16));
             btnReturnCar.addActionListener(e -> returnCar());
             centerPanel.add(btnReturnCar);
 
             JButton btnDisplayCars = new JButton("Display All Cars");
+            btnDisplayCars.setFont(new Font("Arial", Font.BOLD, 16));
             btnDisplayCars.addActionListener(e -> displayCars());
             centerPanel.add(btnDisplayCars);
 
             JButton btnViewRentalHistory = new JButton("View Rental History");
+            btnViewRentalHistory.setFont(new Font("Arial", Font.BOLD, 16));
             btnViewRentalHistory.addActionListener(e -> viewRentalHistory());
             centerPanel.add(btnViewRentalHistory);
 
@@ -84,6 +101,7 @@ class RentalSystemGUI extends JFrame {
         }
 
         JButton btnExit = new JButton("Exit");
+        btnExit.setFont(new Font("Arial", Font.BOLD, 16));
         btnExit.addActionListener(e -> {
             rentalSystem.saveCarsToFile("cars.txt");
             rentalSystem.saveCustomersToFile("customers.txt");
